@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diploma Hub - BTE Result Link Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Navigation and Footer Styles (from first code) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1a4b8c;
+            --secondary: #2e7d32;
+            --accent: #ff6f00;
+            --light: #f5f9ff;
+            --dark: #0d2a4d;
+            --text: #333;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 10px;
+            overflow: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-name {
+            font-size: 30px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .brand-orange {
+            color: var(--accent);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            color: white;
+            padding: 3rem 0 2rem;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 12px;
+            font-size: 1.2rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: #c5d9ff;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-column p {
+            color: #c5d9ff;
+            line-height: 1.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #c5d9ff;
+            font-size: 0.9rem;
+        }
+
+        /* Main Content Styles (from second code) */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .app-header {
+            width: 100%;
+            max-width: 800px;
+            background: linear-gradient(to right, #0f3460, #1a1a2e);
+            color: white;
+            padding: 25px 40px;
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-header:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, #ff7e5f, #feb47b, #86a8e7, #91eae4);
+        }
+
+        .app-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+            background: linear-gradient(to right, #86a8e7, #91eae4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .app-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .developer-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(134, 168, 231, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .developer-tag .highlight {
+            color: #86a8e7;
+            font-weight: 600;
+        }
+
+        .app-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(10px);
+            margin-bottom: 40px;
+        }
+
+        .app-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .app-container h2 {
+            color: #1a1a2e;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .app-container h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, #0f3460, #86a8e7);
+            border-radius: 2px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #0f3460;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-group label:before {
+            content: '•';
+            color: #86a8e7;
+            font-size: 20px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background-color: #f8fafc;
+            color: #333;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #86a8e7;
+            background-color: white;
+            box-shadow: 0 0 0 4px rgba(134, 168, 231, 0.15);
+        }
+
+        .helper-text {
+            font-size: 13px;
+            color: #666;
+            margin-top: 8px;
+            display: block;
+            padding-left: 10px;
+            border-left: 3px solid #e0e0e0;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(to right, #0f3460, #1a1a2e);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(15, 52, 96, 0.3);
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(to right, #1a1a2e, #0f3460);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(15, 52, 96, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .result-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(to right, #2ecc71, #1abc9c);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        .result-btn.active {
+            display: flex;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .result-btn:hover {
+            background: linear-gradient(to right, #27ae60, #16a085);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+        }
+
+        .result-btn:active {
+            transform: translateY(0);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .icon {
+            font-size: 22px;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 8px;
+            display: none;
+            padding-left: 10px;
+            border-left: 3px solid #e74c3c;
+        }
+
+        .error.active {
+            display: block;
+        }
+
+        .loader {
+            display: none;
+            width: 22px;
+            height: 22px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading .loader {
+            display: inline-block;
+        }
+
+        .success-message {
+            background: #e8f6ef;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 5px solid #2ecc71;
+            margin-top: 20px;
+            display: none;
+            align-items: center;
+            gap: 15px;
+            color: #27ae60;
+            font-weight: 500;
+            box-shadow: 0 3px 10px rgba(39, 174, 96, 0.1);
+        }
+
+        .success-message.active {
+            display: flex;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .success-message .icon {
+            font-size: 28px;
+        }
+
+        .app-footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .app-footer p {
+            margin-bottom: 5px;
+        }
+
+        .copyright-small {
+            color: #888;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        .developer-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            color: #0f3460;
+            font-weight: 500;
+        }
+
+        .developer-info .tag {
+            background: linear-gradient(to right, #86a8e7, #91eae4);
+            padding: 6px 15px;
+            border-radius: 20px;
+            color: white;
+            font-size: 13px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: row;
+                text-align: left;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background: linear-gradient(135deg, var(--primary), var(--dark));
+                padding: 1rem 0;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            nav.active {
+                display: block;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 0 1rem;
+            }
+
+            nav ul li {
+                margin: 0;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 0.8rem;
+                border-radius: 5px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+            
+            .app-header {
+                padding: 20px;
+                border-radius: 15px 15px 0 0;
+            }
+            
+            .app-header h1 {
+                font-size: 2rem;
+            }
+            
+            .app-container {
+                padding: 25px;
+                border-radius: 0 0 15px 15px;
+            }
+            
+            .app-container h2 {
+                font-size: 24px;
+            }
+            
+            .submit-btn, .result-btn {
+                padding: 16px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                width: 98%;
+                padding: 0 5px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .brand-name {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container header-content">
+            <div class="brand-name">
+                <span class="brand-orange">🎓Diploma </span> Hub
+            </div>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                     <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="book.html"><i class="fas fa-star"></i> Books</a></li>
+                    <li><a href="admitcard.html"><i class="fas fa-filter"></i>Admit Card</a></li>
+                    <li><a href="syllabus.html"><i class="fas fa-book"></i>Syllabus</a></li>
+                    <li><a href="Extra.html"><i class="fas fa-pen"></i>Extra actvity</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <div class="app-header">
+            <h1>BTE Result Link Generator</h1>
+            <p>Quickly generate and access your BTE examination results</p>
+            <div class="developer-tag">
+                Developed by <span class="highlight">Rishabh Yadav</span>
+            </div>
+        </div>
+        
+        <div class="app-container">
+            <h2>Enter Your Details</h2>
+            
+            <div class="input-group">
+                <label for="enroll">Enrollment Number</label>
+                <input type="text" id="enroll" placeholder="Enter your complete enrollment number">
+                <span class="helper-text">Make sure to enter your enrollment number correctly</span>
+                <div class="error" id="enroll-error">Please enter a valid enrollment number</div>
+            </div>
+            
+            <div class="input-group">
+                <label for="dob">Date of Birth</label>
+                <input type="text" id="dob" placeholder="DD/MM/YYYY">
+                <span class="helper-text">Format: Day/Month/Year (Example: 15/05/2002)</span>
+                <div class="error" id="dob-error">Please enter date in DD/MM/YYYY format</div>
+            </div>
+            
+            <button class="submit-btn" id="submit-btn" onclick="generateLink()">
+                <span>Generate Result Link</span>
+                <span class="icon">🔗</span>
+                <div class="loader"></div>
+            </button>
+            
+            <div class="success-message" id="success-message">
+                <span class="icon">✅</span>
+                <span>Your result link has been generated successfully! Click below to open your result.</span>
+            </div>
+            
+            <button class="result-btn" id="result-btn" onclick="openResult()">
+                <span>Open Result in New Tab</span>
+                <span class="icon">🔍</span>
+            </button>
+            
+            <div class="app-footer">
+                <p>This tool helps you generate direct links to BTE exam results securely.</p>
+                <div class="developer-info">
+                    <span>Developer:</span>
+                    <div class="tag">Rishabh Yadav</div>
+                </div>
+                <div class="copyright-small">
+                    © 2026 BTE Result Generator | All rights reserved
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Diploma Hub</h3>
+                    <p>Your premier destination for polytechnic previous year question papers. We provide organized
+                        collections to help students prepare effectively.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.youtube.com/@Polytechnicacademy99"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.instagram.com/amit_kumar_9950?igsh=MW15NmwwN2tvZDUyOQ=="><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="books.html"><i class="fas fa-chevron-right"></i> Books</a></li>
+                        <li><a href="#filter"><i class="fas fa-chevron-right"></i> Search PYQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Branches</h3>
+                    <ul>
+                        <li><a href="#index"><i class="fas fa-chevron-right"></i> Computer Science</a></li>
+                        <li><a href="#index"><i class="fas fa-chevron-right"></i> Electrical Engineering</a></li>
+                        <li><a href="#index"><i class="fas fa-chevron-right"></i> Civil Engineering</a></li>
+                        <li><a href="#index"><i class="fas fa-chevron-right"></i> Mechanical Engineering</a></li>
+                        <li><a href="#index"><i class="fas fa-chevron-right"></i> Electronics Engineering</a></li>
+                        <li><a href="#index"><i class="fas fa-chevron-right"></i> Information Technology</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Rishabh Yadav</a>
+                        </li>
+                        <li><a href="mailto:yadavrishabh160707@gmail.com"><i class="fas fa-envelope"></i>
+                             yadavrishabh160707@gmail.com</a></li>
+                        <li><a href="tel:+919305269120"><i class="fas fa-phone"></i> +91 9305269120</a></li>
+                        <li><a href="#"><i class="fas fa-clock"></i> Mon - Sat: 9:00 AM - 6:00 PM</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>
+                    Every great project begins with a spark of curiosity and dedication.
+                    Crafted with 💻 passion and ❤️ love by
+                    <span class="author-name">Rishabh Yadav</span> —
+                    a student of <strong>Government Polytechnic Premdhar Patti Pratapgarh</strong>,
+                    striving to turn imagination into innovation.
+                    <br><br>
+                    © All rights reserved. | Designed &amp; Developed by
+                    <span class="author-name">Rishabh Yadav</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+<script>
+let generatedLink = "";
+
+function generateLink() {
+
+    let enroll = document.getElementById("enroll").value.trim();
+    let dob = document.getElementById("dob").value.trim();
+    
+    document.getElementById("enroll-error").classList.remove("active");
+    document.getElementById("dob-error").classList.remove("active");
+
+    let isValid = true;
+
+    if(enroll === "") {
+        document.getElementById("enroll-error").classList.add("active");
+        isValid = false;
+    }
+
+    const dobRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+    if(dob === "" || !dobRegex.test(dob)) {
+        document.getElementById("dob-error").classList.add("active");
+        isValid = false;
+    }
+
+    if(!isValid) return;
+
+    let encEnroll = btoa(enroll);
+    let encDob = btoa(dob).replace(/=/g,"%3D");
+
+    generatedLink =
+    "https://result.bteexam.com/Odd_Semester/main/result.aspx?id="
+    + encEnroll + "&id2=" + encDob;
+
+    document.getElementById("success-message").classList.add("active");
+    document.getElementById("result-btn").classList.add("active");
+}
+
+function openResult() {
+    window.open(generatedLink, "_blank");
+}
+</script>
+
+
+</body></html>

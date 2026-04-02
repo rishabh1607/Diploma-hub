@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diploma Hub - Subject Resources</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="./img assests/logo.jpg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1a4b8c;
+            --secondary: #2e7d32;
+            --accent: #ff6f00;
+            --light: #f5f9ff;
+            --dark: #0d2a4d;
+            --text: #333;
+        }
+
+        body {
+            background-color: #f0f7ff;
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 10px;
+            overflow: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-name {
+            font-size: 30px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .brand-orange {
+            color: var(--accent);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Subject Resources Section */
+        .subject-resources {
+            padding: 3rem 0;
+            background-color: var(--light);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            color: var(--primary);
+            font-size: 2.2rem;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+
+        .subject-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .subject-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 1.8rem 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+        }
+
+        .card-header h3 {
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .card-header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .card-body {
+            padding: 1.8rem 1.5rem;
+        }
+
+        .subject-details {
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-item {
+            display: flex;
+            margin-bottom: 0.8rem;
+            align-items: center;
+        }
+
+        .detail-item i {
+            color: var(--primary);
+            width: 24px;
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .detail-item span {
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .year-badge {
+            background: var(--accent);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, var(--secondary), #1b5e20);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+        }
+
+        .download-btn:hover {
+            background: linear-gradient(135deg, #1b5e20, var(--secondary));
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        .subject-icon {
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+
+        /* Subject-specific colors */
+        .math-card .card-header {
+            background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+        }
+
+        .physics-card .card-header {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+        }
+
+        .chemistry-card .card-header {
+            background: linear-gradient(135deg, #4caf50, #388e3c);
+        }
+
+        .communication-card .card-header {
+            background: linear-gradient(135deg, #2196f3, #1976d2);
+        }
+
+        .drawing-card .card-header {
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+        }
+
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            color: white;
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 12px;
+            font-size: 1.2rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: #c5d9ff;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-column p {
+            color: #c5d9ff;
+            line-height: 1.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #c5d9ff;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: row;
+                text-align: left;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background: linear-gradient(135deg, var(--primary), var(--dark));
+                padding: 1rem 0;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            nav.active {
+                display: block;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 0 1rem;
+            }
+
+            nav ul li {
+                margin: 0;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 0.8rem;
+                border-radius: 5px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+
+            .subject-cards {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                width: 98%;
+                padding: 0 5px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .brand-name {
+                font-size: 1.4rem;
+            }
+
+            .subject-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .coming-soon {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        .wait-message {
+            font-size: 1.2rem;
+            color: var(--text);
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container header-content">
+            <div class="brand-name">
+                <span class="brand-orange">🎓Diploma</span> Hub
+            </div>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="book.html"><i class="fas fa-star"></i> Books</a></li>
+                    <li><a href="admitcard.html"><i class="fas fa-filter"></i>Admit Card</a></li>
+                    <li><a href="syllabus.html"><i class="fas fa-book"></i>Syllabus</a></li>
+                    <li><a href="Extra.html"><i class="fas fa-pen"></i>Extra actvity</a></li>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Subject Resources Section -->
+   <section class="subject-resources">
+    <div class="container">
+        <h2 class="section-title">Notes and marathon pdf</h2>
+        <p style="text-align: center; margin-bottom: 2rem; color: var(--text); max-width: 800px; margin-left: auto; margin-right: auto;">
+            Access comprehensive study materials for various subjects. Download PDFs, notes, and previous year question papers to enhance your preparation.
+        </p>
+        
+        <div class="subject-cards">
+
+            <!-- Applied Mathematics-1 Card -->
+            <div class="subject-card math-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-calculator subject-icon"></i> Applied Mathematics-1</h3>
+                    <p>MA-101</p>
+                </div>
+                <div class="card-body">
+                    <div class="subject-details">
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>All branch </span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Semester 1</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>Math Topics</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Complete</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="year-badge">notes pdf</div>
+                        <a href="pdfs/math1.pdf" download="" class="download-btn">
+                            <i class="fas fa-download"></i> PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Communication Skills Card -->
+            <div class="subject-card communication-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-comments subject-icon"></i> Communication Skills</h3>
+                    <p>CS-102</p>
+                </div>
+                <div class="card-body">
+                    <div class="subject-details">
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>All branch</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Semester 1</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>Language Skills</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Complete</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="year-badge">notes pdf</div>
+                        <a href="./other_pdf//Communication Skill Notes First semester-- (1).pdf" download="" class="download-btn">
+                            <i class="fas fa-download"></i> PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Applied Physics Card -->
+            <div class="subject-card physics-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-atom subject-icon"></i> Applied Physics</h3>
+                    <p>AP-103</p>
+                </div>
+                <div class="card-body">
+                    <div class="subject-details">
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>All branch </span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Semester 1</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>Physics Topics</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Complete</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="year-badge">2023</div>
+                        <a href="./other_pdf//Applied Physics 1st Notes  (1) (1).pdf" download="" class="download-btn">
+                            <i class="fas fa-download"></i> PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Drawing Card -->
+            <div class="subject-card drawing-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-drafting-compass subject-icon"></i> Engineering Drawing</h3>
+                    <p>ED-104</p>
+                </div>
+                <div class="card-body">
+                    <div class="subject-details">
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>All branch</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Semester 1</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>Drawing Basics</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Complete</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="year-badge">2023</div>
+                        <a href="./other_pdf/technical drawing.pdf" download="" class="download-btn">
+                            <i class="fas fa-download"></i> PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Applied Chemistry Card -->
+            <div class="subject-card chemistry-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-flask subject-icon"></i> Applied Chemistry</h3>
+                    <p>AC-105</p>
+                </div>
+                <div class="card-body">
+                    <div class="subject-details">
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>All branch</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Semester 1</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>Chemistry Topics</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Complete</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="year-badge">2023</div>
+                        <a href="pdfs/chemistry.pdf" download="" class="download-btn">
+                            <i class="fas fa-download"></i> PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+ <div class="subject-card chemistry-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-flask subject-icon"></i> Operating System</h3>
+                    <p>OS</p>
+                </div>
+                <div class="card-body">
+                    <div class="subject-details">
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Computer Science &amp; Engineering</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Semester 3</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>Operating System</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Complete</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="year-badge">2025</div>
+                        <a href="./other_pdf//os.pdf" download="" class="download-btn">
+                            <i class="fas fa-download"></i> PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+ <div class="subject-card chemistry-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-flask subject-icon"></i> DBMS</h3>
+                    <p>OS</p>
+                </div>
+                <div class="card-body">
+                    <div class="subject-details">
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Computer Science &amp; Engineering</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Semester 3</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>DBMS</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Complete</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="year-badge">2025</div>
+                        <a href="./other_pdf//DBMS.pdf" download="" class="download-btn">
+                            <i class="fas fa-download"></i> PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+ <div class="subject-card chemistry-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-flask subject-icon"></i> Computer Network</h3>
+                    <p>CN</p>
+                </div>
+                <div class="card-body">
+                    <div class="subject-details">
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Computer Science &amp; Engineering</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Semester 3</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>Computer Network</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Complete</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="year-badge">2025</div>
+                        <a href="./other_pdf//computer network .pdf" download="" class="download-btn">
+                            <i class="fas fa-download"></i> PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+ <div class="subject-card chemistry-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-flask subject-icon"></i> Software Engineering</h3>
+                    <p>SW</p>
+                </div>
+                <div class="card-body">
+                    <div class="subject-details">
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Computer Science &amp; Engineering</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Semester 3</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>Software Engineering</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Complete</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="year-badge">2025</div>
+                        <a href="./other_pdf//software engineering.pdf" download="" class="download-btn">
+                            <i class="fas fa-download"></i> PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+<!-- 5th semester CSE  -->
+
+ <div class="subject-card physics-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-atom subject-icon"></i> Software Engineering</h3>
+                    <p>SW</p>
+                </div>
+                <div class="card-body">
+                    <div class="subject-details">
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Computer Science And Engineering </span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Semester 5</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>Software Engineering</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Complete</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="year-badge">2025</div>
+                        <a href="./other_pdf//software 5th sem.pdf" download="" class="download-btn">
+                            <i class="fas fa-download"></i> PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+ <div class="subject-card physics-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-atom subject-icon"></i> Internet of Thing</h3>
+                    <p>IOT</p>
+                </div>
+                <div class="card-body">
+                    <div class="subject-details">
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>computer Science and Engineering </span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Semester 5</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>IOT topic</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Complete</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="year-badge">2025</div>
+                        <a href="./other_pdf//iot.pdf" download="" class="download-btn">
+                            <i class="fas fa-download"></i> PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+             <div class="subject-card physics-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-atom subject-icon"></i> Python</h3>
+                    <p>PY</p>
+                </div>
+                <div class="card-body">
+                    <div class="subject-details">
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Computer Science and Engineering</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Semester 5</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>Python topic</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Complete</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="year-badge">2025</div>
+                        <a href="./other_pdf//python seme.pdf" download="" class="download-btn">
+                            <i class="fas fa-download"></i> PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+ <div class="subject-card physics-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-atom subject-icon"></i> CAHM</h3>
+                    <p>CAHM</p>
+                </div>
+                <div class="card-body">
+                    <div class="subject-details">
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Computer Science and engineering </span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Semester 5</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>CAHM Topics</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Complete</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="year-badge">2025</div>
+                        <a href="./other_pdf/CHAM notes pdf 5th Sem.CS  (2).pdf" download="" class="download-btn">
+                            <i class="fas fa-download"></i> PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+             <div class="subject-card physics-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-atom subject-icon"></i> PHP</h3>
+                    <p>PHP</p>
+                </div>
+                <div class="card-body">
+                    <div class="subject-details">
+                        <div class="detail-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Computer Science And Engineering </span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Semester 5</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-book"></i>
+                            <span>PHP Topics</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Complete</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="year-badge">2025</div>
+                        <a href="./other_pdf/marathon php.pdf" download="" class="download-btn">
+                            <i class="fas fa-download"></i> PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</section>
+
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1 class="coming-soon">MORE UPDATE COMING SOON........</h1>
+        <p class="wait-message">Please wait while we prepare more exciting content for you. We're working hard to bring you the best educational resources.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Diploma Hub</h3>
+                    <p>Your premier destination for polytechnic previous year question papers. We provide organized
+                        collections to help students prepare effectively.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.youtube.com/@Polytechnicacademy99"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.instagram.com/amit_kumar_9950?igsh=MW15NmwwN2tvZDUyOQ=="><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="home.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="book.html"><i class="fas fa-chevron-right"></i> Books</a></li>
+                        <li><a href="#filter"><i class="fas fa-chevron-right"></i> Search PYQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Branches</h3>
+                    <ul>
+                        <li><a href="#index"><i class="fas fa-chevron-right"></i> Computer Science</a></li>
+                        <li><a href="#index"><i class="fas fa-chevron-right"></i> Electrical Engineering</a></li>
+                        <li><a href="#index"><i class="fas fa-chevron-right"></i> Civil Engineering</a></li>
+                        <li><a href="#index"><i class="fas fa-chevron-right"></i> Mechanical Engineering</a></li>
+                        <li><a href="#index"><i class="fas fa-chevron-right"></i> Electronics Engineering</a></li>
+                        <li><a href="#index"><i class="fas fa-chevron-right"></i> Information Technology</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Rishabh Yadav</a>
+                        </li>
+                        <li><a href="mailto:yadavrishabh160707@gmail.com"><i class="fas fa-envelope"></i>
+                             yadavrishabh160707@gmail.com</a></li>
+                        <li><a href="tel:+919305269120"><i class="fas fa-phone"></i> +91 9305269120</a></li>
+                        <li><a href="#"><i class="fas fa-clock"></i> Mon - Sat: 9:00 AM - 6:00 PM</a></li>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>
+                    Every great project begins with a spark of curiosity and dedication.
+                    Crafted with 💻 passion and ❤️ love by
+                    <span class="author-name">Rishabh Yadav</span> —
+                    a student of <strong>Government Polytechnic Premdhar Patti Pratapgarh</strong>,
+                    striving to turn imagination into innovation.
+                    <br><br>
+                    © All rights reserved. | Designed &amp; Developed by
+                    <span class="author-name">Rishabh Yadav</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menuToggle').addEventListener('click', function () {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('active');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+
+                // Close mobile menu after clicking
+                const nav = document.getElementById('mainNav');
+                nav.classList.remove('active');
+            });
+        });
+
+        // Download button functionality
+        document.querySelectorAll('.download-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const subjectName = this.closest('.subject-card').querySelector('h3').textContent;
+                alert(`Downloading PDF for ${subjectName}`);
+                // In a real application, you would trigger actual file download here
+            });
+        });
+    </script>
+
+</body></html>

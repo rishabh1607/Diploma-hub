@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Diploma Hub | BTEUP Result Access Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, sans-serif;
+        }
+
+        :root {
+            --primary: #0b2b5c;
+            --primary-dark: #071e42;
+            --secondary: #1e6f3f;
+            --accent: #f39c12;
+            --accent-light: #ffb347;
+            --light-bg: #f4f9ff;
+            --white: #ffffff;
+            --gray-text: #2c3e50;
+            --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 20px 30px -12px rgba(0, 0, 0, 0.2);
+            --gradient-hero: linear-gradient(135deg, #0a2b44 0%, #0f3b5c 100%);
+        }
+
+        body {
+            background: linear-gradient(145deg, #eef2f7 0%, #d9e2ec 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--gray-text);
+        }
+
+        /* Header Navigation */
+        .top-bar {
+            background: var(--primary-dark);
+            backdrop-filter: blur(2px);
+            padding: 0.9rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .brand-text {
+            font-size: 1.7rem;
+            font-weight: 800;
+            background: linear-gradient(120deg, #fff, #ffdd99);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-sub {
+            font-size: 0.8rem;
+            color: #b9d5ff;
+            margin-top: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.8rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #f0f4fa;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 1.8rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Main card UI */
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem 1.5rem;
+        }
+
+        .result-card {
+            max-width: 720px;
+            width: 100%;
+            background: var(--white);
+            border-radius: 2rem;
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            transition: transform 0.25s ease;
+            margin: 20px auto;
+        }
+
+        .card-header {
+            background: var(--gradient-hero);
+            padding: 2rem 2rem 1.8rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .card-header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 10%;
+            width: 80%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--accent), var(--accent-light), transparent);
+            border-radius: 4px;
+        }
+
+        .card-header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            letter-spacing: -0.3px;
+            margin-bottom: 8px;
+        }
+
+        .card-header p {
+            color: #d4e6ff;
+            font-weight: 500;
+        }
+
+        .developer-badge {
+            background: rgba(255,255,240,0.15);
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-top: 16px;
+            backdrop-filter: blur(4px);
+            color: #ffecb3;
+        }
+
+        .developer-badge i {
+            margin-right: 6px;
+            color: var(--accent);
+        }
+
+        .card-body {
+            padding: 2.2rem 2rem;
+        }
+
+        .input-field {
+            margin-bottom: 1.8rem;
+        }
+
+        .input-field label {
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .input-field label i {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .input-field input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 1.2rem;
+            font-size: 1rem;
+            transition: all 0.2s;
+            background: #fefefe;
+            font-weight: 500;
+        }
+
+        .input-field input:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
+            background: white;
+        }
+
+        .helper-tip {
+            font-size: 0.75rem;
+            color: #5f6c80;
+            margin-top: 6px;
+            margin-left: 12px;
+        }
+
+        .error-msg {
+            color: #e53e3e;
+            font-size: 0.8rem;
+            margin-top: 6px;
+            margin-left: 12px;
+            display: none;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .error-msg.active {
+            display: flex;
+        }
+
+        .btn-generate {
+            width: 100%;
+            background: linear-gradient(95deg, var(--primary), #124072);
+            border: none;
+            padding: 16px;
+            border-radius: 3rem;
+            color: white;
+            font-weight: 800;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 20px;
+            box-shadow: 0 8px 18px rgba(11, 43, 92, 0.25);
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(95deg, #0e3a6b, #0b2b5c);
+            box-shadow: 0 12px 22px rgba(0,0,0,0.2);
+        }
+
+        .success-area {
+            background: #e6f9ed;
+            border-left: 6px solid #27ae60;
+            padding: 1rem 1.2rem;
+            border-radius: 1rem;
+            margin: 1.8rem 0 1rem;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            animation: fadeSlide 0.4s ease;
+        }
+
+        .success-area.active {
+            display: flex;
+        }
+
+        .success-area i {
+            font-size: 1.8rem;
+            color: #27ae60;
+        }
+
+        .btn-result {
+            width: 100%;
+            background: linear-gradient(100deg, #1e6f3f, #15803d);
+            border: none;
+            padding: 15px;
+            border-radius: 3rem;
+            color: white;
+            font-weight: 800;
+            font-size: 1.05rem;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 15px;
+        }
+
+        .btn-result.active {
+            display: flex;
+            animation: fadeSlide 0.4s ease;
+        }
+
+        .btn-result:hover {
+            transform: translateY(-2px);
+            background: #0f5a36;
+            box-shadow: 0 8px 18px rgba(30,111,63,0.3);
+        }
+
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            display: none;
+            animation: spin 0.7s linear infinite;
+        }
+
+        .btn-generate.loading .spinner {
+            display: inline-block;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            color: #cddcec;
+            padding: 2rem 1rem 1.5rem;
+            margin-top: auto;
+            border-top: 1px solid rgba(255,215,120,0.2);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #bdd3ff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            background: #1f3a5f;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            transition: 0.2s;
+            color: white;
+        }
+
+        .social-icons a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.2rem;
+        }
+
+        @media (max-width: 780px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: var(--primary-dark);
+                padding: 1rem;
+                margin-top: 1rem;
+                border-radius: 1rem;
+            }
+            .nav-links.show {
+                display: flex;
+            }
+            .menu-icon {
+                display: block;
+            }
+            .card-body {
+                padding: 1.5rem;
+            }
+            .brand-text {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header Navigation -->
+<div class="top-bar">
+    <div class="nav-container">
+        <div class="logo-area">
+            <i class="fas fa-graduation-cap logo-icon"></i>
+            <div>
+                <div class="brand-text">Diploma Hub</div>
+                <div class="brand-sub">BTEUP Result Checker</div>
+            </div>
+        </div>
+        <div class="menu-icon" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="book.html"><i class="fas fa-star"></i> Books</a></li>
+                    <li><a href="admitcard.html"><i class="fas fa-filter"></i>Admit Card</a></li>
+                    <li><a href="syllabus.html"><i class="fas fa-book"></i>Syllabus</a></li>
+                    <li><a href="Extra.html"><i class="fas fa-pen"></i>Extra actvity</a></li>
+                    <li><a href="Result.html"><i class="fas fa-palette"></i> Result</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Main Result Tool -->
+<div class="main-wrapper">
+    <div class="result-card">
+        <div class="card-header">
+            <h1><i class="fas fa-link"></i> BTE Revaluation Result</h1>
+            <p>Fast &amp; secure access to your Odd Semester re-check result</p>
+            <div class="developer-badge">
+                <i class="fas fa-code"></i> Developed by <strong>Rishabh Yadav</strong> | Polytechnic
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="input-field">
+                <label><i class="fas fa-id-card"></i> Enrollment Number</label>
+                <input type="text" id="enrollNo" placeholder="Example: E25111033800024 or 25111033800024" value="E25111033800024">
+                <div class="helper-tip"><i class="fas fa-info-circle"></i> Enter full enrollment (with or without 'E')</div>
+                <div class="error-msg" id="enrollError"><i class="fas fa-exclamation-triangle"></i> Enrollment number is required</div>
+            </div>
+            <div class="input-field">
+                <label><i class="fas fa-calendar-alt"></i> Date of Birth</label>
+                <input type="text" id="dobInput" placeholder="DD/MM/YYYY" value="27/04/2008">
+                <div class="helper-tip"><i class="fas fa-calendar-check"></i> Format: DD/MM/YYYY (eg. 27/04/2008)</div>
+                <div class="error-msg" id="dobError"><i class="fas fa-exclamation-triangle"></i> Enter valid DOB in DD/MM/YYYY format</div>
+            </div>
+
+            <button class="btn-generate" id="generateBtn">
+                <span>Generate Result Link</span>
+                <i class="fas fa-arrow-right"></i>
+                <div class="spinner"></div>
+            </button>
+
+            <div class="success-area" id="successMsg">
+                <i class="fas fa-check-circle"></i>
+                <span>✅ Link generated successfully! Click below to view your result.</span>
+            </div>
+
+            <button class="btn-result" id="viewResultBtn">
+                <i class="fas fa-external-link-alt"></i> Open Result in New Tab
+                <i class="fas fa-graduation-cap"></i>
+            </button>
+
+            <div class="helper-tip" style="margin-top: 25px; text-align: center; border-top: 1px solid #eef2f0; padding-top: 18px;">
+                <i class="fas fa-shield-alt"></i> Official BTE result portal | Secure revaluation access
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-section">
+            <h4><i class="fas fa-chalkboard-user"></i> Diploma Hub</h4>
+            <p>Empowering students with instant result access and study resources. Government Polytechnic Premdhar Patti Pratapgarh.</p>
+            <div class="social-icons" style="margin-top: 12px;">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.youtube.com/@rishabh-1607"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <p><a href="#"><i class="fas fa-chevron-right"></i> Previous Papers</a></p>
+            <p><a href="#"><i class="fas fa-chevron-right"></i> Syllabus</a></p>
+            <p><a href="#"><i class="fas fa-chevron-right"></i> Result Portal</a></p>
+        </div>
+        <div class="footer-section">
+            <h4>Contact</h4>
+            <p><i class="fas fa-envelope"></i>yadavrishabh160707@gmail.com</p>
+            <p><i class="fas fa-phone-alt"></i> +91 9305269120</p>
+            <p><i class="fas fa-map-marker-alt"></i> Rishabh Yadav</p>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>✨ Crafted with passion by <strong>Rishabh Yadav</strong> (Polytechnic Student) — Turning code into solutions ✨<br>
+        © 2026 BTE Result Access Tool | All rights reserved | Official revaluation reference</p>
+    </div>
+</footer>
+
+<script>
+    // DOM elements
+    const enrollInput = document.getElementById('enrollNo');
+    const dobInput = document.getElementById('dobInput');
+    const generateBtn = document.getElementById('generateBtn');
+    const successMsgDiv = document.getElementById('successMsg');
+    const viewResultBtn = document.getElementById('viewResultBtn');
+    const enrollErrorSpan = document.getElementById('enrollError');
+    const dobErrorSpan = document.getElementById('dobError');
+
+    let generatedFinalUrl = "";
+
+    // Helper: Validate DOB strictly DD/MM/YYYY
+    function isValidDOB(dateStr) {
+        const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+        if (!regex.test(dateStr)) return false;
+        const parts = dateStr.split('/');
+        const day = parseInt(parts[0], 10);
+        const month = parseInt(parts[1], 10);
+        const year = parseInt(parts[2], 10);
+        if (month < 1 || month > 12) return false;
+        const daysInMonth = new Date(year, month, 0).getDate();
+        if (day < 1 || day > daysInMonth) return false;
+        // basic year range 1900-2100
+        if (year < 1900 || year > 2100) return false;
+        return true;
+    }
+
+    // Base64 encoding with UTF-8 safe (btoa requires ASCII but our cleaned enroll is digits)
+    // and dob encoding: original logic: btoa(dob) then encodeURIComponent
+    // according to working URL pattern: id = base64(cleanedEnroll) , id2 = encodeURIComponent(base64(dob))
+    function generateResultUrl(enrollRaw, dobRaw) {
+        // Remove 'E' or 'e' prefix if present (case insensitive)
+        let cleanedEnroll = enrollRaw.trim();
+        if (cleanedEnroll.toUpperCase().startsWith('E')) {
+            cleanedEnroll = cleanedEnroll.substring(1);
+        }
+        // Remove any spaces
+        cleanedEnroll = cleanedEnroll.replace(/\s/g, '');
+        
+        // Enrollment must be digits after removal (validation)
+        if (!/^\d+$/.test(cleanedEnroll)) {
+            throw new Error("Invalid enrollment number: must contain digits after removing 'E'");
+        }
+        
+        // Step 1: Base64 encode cleaned enrollment (ASCII safe)
+        let encEnroll = btoa(cleanedEnroll);
+        
+        // Step 2: DOB base64 encode (the raw DOB string like "27/04/2008")
+        let dobBase64 = btoa(dobRaw);
+        // Step 3: URL encode that base64 string as per original working URL pattern
+        let encDob = encodeURIComponent(dobBase64);
+        
+        // Final REVAL URL exactly as per working example:
+        // https://result.bteexam.com/Odd_Semester/reval/REVAL_RollNo.aspx?id=...&id2=...
+        const finalUrl = `https://result.bteexam.com/Odd_Semester/reval/REVAL_RollNo.aspx?id=${encEnroll}&id2=${encDob}`;
+        return finalUrl;
+    }
+
+    // Reset error states
+    function resetErrors() {
+        enrollErrorSpan.classList.remove('active');
+        dobErrorSpan.classList.remove('active');
+    }
+
+    // Show field error
+    function showEnrollError(msg = "Please enter a valid enrollment number") {
+        enrollErrorSpan.querySelector('span')?.remove();
+        enrollErrorSpan.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${msg}`;
+        enrollErrorSpan.classList.add('active');
+    }
+
+    function showDobError(msg = "Date must be in DD/MM/YYYY format") {
+        dobErrorSpan.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${msg}`;
+        dobErrorSpan.classList.add('active');
+    }
+
+    // Generate link action
+    function handleGenerate() {
+        resetErrors();
+        let enrollVal = enrollInput.value.trim();
+        let dobVal = dobInput.value.trim();
+        
+        let hasError = false;
+        
+        // Enrollment validation: non-empty and after removing E should be numeric
+        if (enrollVal === "") {
+            showEnrollError("Enrollment number cannot be empty");
+            hasError = true;
+        } else {
+            let testClean = enrollVal;
+            if (testClean.toUpperCase().startsWith('E')) testClean = testClean.substring(1);
+            testClean = testClean.replace(/\s/g, '');
+            if (!/^\d+$/.test(testClean)) {
+                showEnrollError("Enrollment must contain digits only (optional starting E)");
+                hasError = true;
+            }
+        }
+        
+        // DOB validation strict DD/MM/YYYY
+        if (dobVal === "") {
+            showDobError("Date of Birth is required");
+            hasError = true;
+        } else if (!isValidDOB(dobVal)) {
+            showDobError("Invalid date! Use DD/MM/YYYY (example: 27/04/2008)");
+            hasError = true;
+        }
+        
+        if (hasError) return;
+        
+        // Show loading state on button
+        generateBtn.classList.add('loading');
+        generateBtn.disabled = true;
+        
+        // Small delay to simulate processing, but instantly compute
+        setTimeout(() => {
+            try {
+                const url = generateResultUrl(enrollVal, dobVal);
+                generatedFinalUrl = url;
+                // Show success message and result button
+                successMsgDiv.classList.add('active');
+                viewResultBtn.classList.add('active');
+                // Scroll success into view smoothly
+                successMsgDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } catch (err) {
+                console.error(err);
+                showEnrollError(err.message || "Invalid enrollment format");
+                successMsgDiv.classList.remove('active');
+                viewResultBtn.classList.remove('active');
+                generatedFinalUrl = "";
+            } finally {
+                generateBtn.classList.remove('loading');
+                generateBtn.disabled = false;
+            }
+        }, 200);
+    }
+    
+    // Open result in new tab
+    function openResult() {
+        if (generatedFinalUrl && generatedFinalUrl.startsWith('https://result.bteexam.com')) {
+            window.open(generatedFinalUrl, '_blank');
+        } else {
+            alert("⚠️ No valid result link generated. Please enter correct enrollment and DOB first.");
+        }
+    }
+    
+    // attach event listeners
+    generateBtn.addEventListener('click', handleGenerate);
+    viewResultBtn.addEventListener('click', openResult);
+    
+    // Enter key shortcuts
+    const inputs = [enrollInput, dobInput];
+    inputs.forEach(inp => {
+        inp.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handleGenerate();
+            }
+        });
+    });
+    
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (menuToggle) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+    }
+    
+    // Optional: Prefill demo values to show working instantly (they are already set with given example: E25111033800024 and 27/04/2008)
+    // Test if on load demo works quickly
+    window.addEventListener('DOMContentLoaded', () => {
+        // Demo test but not auto generate. just set.
+        console.log("Ready: Fill enrollment and DOB then generate link.");
+        // extra sanity: if both fields have valid demo, we could show instruction but not auto-generate.
+        // User clicks generate. Ensure link exactly matches decoded logic: 
+        // given sample: id = MTExMDMzODAwMDI0 ? Let's verify: cleaned enroll = 25111033800024 => btoa("25111033800024") -> "MjUxMTEwMzM4MDAwMjQ="? but original URL had ?id=RTI1MTExMDMzODAwMDI0 etc. That's for another pattern? but our fix uses your correct REVAL format with base64 of cleaned enroll without E.
+        // Working link pattern from your description: the URL you provided had "id=RTI1MTExMDMzODAwMDI0" which is actually btoa("E25111033800024")? Because "E25111033800024" base64 = "RTI1MTExMDMzODAwMDI0". But in REVAL rollno parameter they might use full string. However, you mentioned that when you entered E25111033800024 and DOB it passed. So we must keep the EXACT same logic that worked for you.
+        // Wait — After analyzing: The given URL: "https://result.bteexam.com/Odd_Semester/reval/REVAL_RollNo.aspx?id=RTI1MTExMDMzODAwMDI0&id2=MjcvMDQvMjAwOA%3d%3d"
+        // Here id=RTI1MTExMDMzODAwMDI0 is actually btoa("E25111033800024") (since base64 of E25111033800024 = RTI1MTExMDMzODAwMDI0)
+        // And id2=MjcvMDQvMjAwOA%3d%3d => decodeURIComponent gives MjcvMDQvMjAwOA== which is btoa("27/04/2008")
+        // That means the ORIGINAL working logic uses FULL enrollment WITH 'E' inside base64.
+        // IMPORTANT FIX: Our earlier code stripped E but now we see the working link used id = base64(originalEnrollWithE).
+        // Let's correct the core logic to match EXACTLY the working pattern from your success example:
+        // So the correct generation: id = btoa(enrollValueAsIs)   (with E if present), id2 = encodeURIComponent(btoa(dobString))
+        
+        // Override generateResultUrl with the REAL working logic:
+        window.generateResultUrl = function(enrollRaw, dobRaw) {
+            let finalEnroll = enrollRaw.trim();
+            // do NOT strip E, keep exactly as user entered (with or without E)
+            // if user forgot E, we keep as is, but official may need E? But the example given "E25111033800024" works
+            // For safety we retain what user types (they can enter with E)
+            if (finalEnroll === "") throw new Error("Enrollment required");
+            let encEnroll = btoa(finalEnroll);
+            let encDobRaw = btoa(dobRaw);
+            let encDob = encodeURIComponent(encDobRaw);
+            return `https://result.bteexam.com/Odd_Semester/reval/REVAL_RollNo.aspx?id=${encEnroll}&id2=${encDob}`;
+        };
+        
+        // rebind generate logic using corrected function
+        const originalHandler = handleGenerate;
+        window.correctGenerate = function() {
+            resetErrors();
+            let enrollVal = enrollInput.value.trim();
+            let dobVal = dobInput.value.trim();
+            let hasError = false;
+            if (enrollVal === "") {
+                showEnrollError("Enrollment number cannot be empty");
+                hasError = true;
+            }
+            if (dobVal === "") {
+                showDobError("Date of Birth is required");
+                hasError = true;
+            } else if (!isValidDOB(dobVal)) {
+                showDobError("Use DD/MM/YYYY format (e.g., 27/04/2008)");
+                hasError = true;
+            }
+            if (hasError) return;
+            
+            generateBtn.classList.add('loading');
+            generateBtn.disabled = true;
+            setTimeout(() => {
+                try {
+                    // Use updated generateResultUrl that keeps enrollment as is (with E)
+                    let url = window.generateResultUrl(enrollVal, dobVal);
+                    generatedFinalUrl = url;
+                    successMsgDiv.classList.add('active');
+                    viewResultBtn.classList.add('active');
+                    successMsgDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                } catch (err) {
+                    showEnrollError(err.message);
+                    successMsgDiv.classList.remove('active');
+                    viewResultBtn.classList.remove('active');
+                } finally {
+                    generateBtn.classList.remove('loading');
+                    generateBtn.disabled = false;
+                }
+            }, 150);
+        };
+        
+        // replace event listener
+        const newGenBtn = document.getElementById('generateBtn');
+        const newViewBtn = document.getElementById('viewResultBtn');
+        const newSuccess = document.getElementById('successMsg');
+        // remove old listeners and attach corrected
+        const oldBtn = generateBtn;
+        const newClone = oldBtn.cloneNode(true);
+        oldBtn.parentNode.replaceChild(newClone, oldBtn);
+        // reassign global references
+        window.generateBtn = newClone;
+        window.viewResultBtn = viewResultBtn;
+        
+        newClone.addEventListener('click', window.correctGenerate);
+        viewResultBtn.addEventListener('click', () => {
+            if (generatedFinalUrl) window.open(generatedFinalUrl, '_blank');
+            else alert("Generate link first");
+        });
+        
+        // also update input event handlers for enter
+        enrollInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') window.correctGenerate(); });
+        dobInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') window.correctGenerate(); });
+        
+        // set demo values
+        enrollInput.value = "E25447735500055";
+        dobInput.value = "01/02/2003";
+        console.log("✅ Fixed with correct base64 logic (preserving E in enrollment)");
+    });
+</script>
+
+</body></html>
